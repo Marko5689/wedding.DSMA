@@ -1,0 +1,84 @@
+/* 1. Force the page to be exactly the screen size */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #060e1f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Cormorant Garamond', serif;
+    overflow: hidden;
+}
+
+/* 2. Container restricted to mobile width */
+.envelope-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 480px; 
+    height: 100vh;
+    background-image: url('fountain.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden; 
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+}
+
+/* 3. Sliding Glass Doors */
+.page-half {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%; 
+    background: rgba(255, 255, 255, 0.05); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
+    z-index: 5;
+}
+
+.left { left: 0; border-right: 1px solid rgba(255, 255, 255, 0.1); }
+.right { right: 0; border-left: 1px solid rgba(255, 255, 255, 0.1); }
+
+/* 4. The Seal */
+.wax-seal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px; 
+    height: 200px;
+    background-image: url('wax_seal.png'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.4s ease, opacity 0.8s ease;
+    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
+}
+
+/* 5. Animations */
+.open .left { transform: translateX(-100%); }
+.open .right { transform: translateX(100%); }
+.open .wax-seal { opacity: 0; pointer-events: none; transform: translate(-50%, -50%) scale(0.3); }
+
+/* 6. The Transition Curtain */
+.transition-overlay {
+    position: fixed;
+    bottom: -100%; 
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px; 
+    height: 100%;
+    background-color: #060e1f; /* Absolute match to main.html */
+    z-index: 9999;
+    /* Use 'transform' instead of 'bottom' for smoother hardware acceleration */
+    transition: transform 0.7s cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+.transition-overlay.active {
+    transform: translate(-50%, -100%);
+}
