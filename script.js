@@ -1,21 +1,37 @@
-const seal = document.getElementById('seal');
-const envelope = document.getElementById('envelope');
-const loader = document.getElementById('loader');
+function showInput() {
+    const seal = document.getElementById('seal');
+    const inputContainer = document.getElementById('input-container');
+    seal.classList.add('shifting');
+    inputContainer.classList.add('active');
+}
 
-// Remove the onclick="openInvitation()" from your HTML and use this:
-seal.addEventListener('click', () => {
-    // 1. Open the doors
+function unlockInvitation(event) {
+    event.stopPropagation();
+    const guestName = document.getElementById('guest-input').value;
+    const envelope = document.getElementById('envelope');
+    const inputContainer = document.getElementById('input-container');
+    const previewText = document.getElementById('preview-text');
+
+    if (guestName.trim() === "") {
+        alert("Sila masukkan nama anda.");
+        return;
+    }
+
+    // 1. Hide Input UI
+    inputContainer.style.opacity = '0';
+    inputContainer.style.pointerEvents = 'none';
+
+    // 2. Open the 3D doors
     envelope.classList.add('open');
 
-    // 2. Start the "Push" curtain sooner
+    // 3. Realistic dissolve of "You're Invited"
     setTimeout(() => {
-        if (loader) {
-            loader.classList.add('active');
-        }
-    }, 500); // Snappier start
+        previewText.style.opacity = '0';
+        previewText.style.filter = 'blur(15px)';
+    }, 600);
 
-    // 3. Redirect while the curtain is at peak velocity
+    // 4. Redirect after doors are open
     setTimeout(() => {
-        window.location.href = 'main.html';
-    }, 1200); 
-});
+        window.location.href = `main.html?to=${encodeURIComponent(guestName)}`;
+    }, 1800); 
+}

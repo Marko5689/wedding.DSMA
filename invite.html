@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Wedding Reception of Dickson & Michelle | Saturday, 17/10/2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Montserrat:wght@200;300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Montserrat:wght@200;300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Montserrat:wght@200;300;400;700&family=Pinyon+Script&family=IM+Fell+DW+Pica:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #060e1f;
+      --pastel-blue: #bfe3f0; /* This will be randomized */
+      --light-pastel-blue: #e0f2f7;
+      --pastel-blue-glass: rgba(174, 198, 207, 0.7); 
+      --maroon-nav: #6b0f0f;
+      --nav-h: 72px;
+      --text-main: #ffffff;
+    }
+
+
+    body {
+      background: #000;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden; 
+      font-family: 'Montserrat', sans-serif;
+    }
+
+
+    #era-tagline {
+  margin-top: 50px;
+  font-size: 14px;
+  color: white;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+#era-name {
+  font-weight: 700;
+  display: block;
+  font-size: 38px;
+  margin-top: 10px;
+  transition: all 0.5s ease;
+}
+
+/* Era Typography */
+.font-lover { font-family: 'Satisfy', cursive; text-transform: none; letter-spacing: 0; text-shadow: 0 0 10px rgba(255, 175, 204, 0.5); }
+.font-midnight { font-family: 'Montserrat', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; }
+.font-red { font-family: 'Playfair Display', serif; text-transform: uppercase; letter-spacing: 8px; font-weight: 700; }
+.font-speaknow { font-family: 'Satisfy', cursive; font-style: italic; text-transform: none; letter-spacing: 1px; }
+.font-tloas { 
+  font-family: 'Cinzel', serif; 
+  font-weight: 700; 
+  text-transform: uppercase; 
+  letter-spacing: 4px; 
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);}
+.font-night { font-family: 'Montserrat', sans-serif; font-weight: 200; text-transform: lowercase; letter-spacing: 2px; }
+.font-ts { 
+  font-family: 'Pinyon Script', cursive; 
+  text-transform: none; 
+  font-size: 42px; /* Script fonts usually need to be larger to be readable */
+  letter-spacing: 0; 
+  font-weight: 400;
+  text-shadow: 0 0 8px rgba(255,255,255,0.3);
+}
+
+/* Fearless (Gold/Yellow Era) - Uses a classic, elegant serif with wide spacing */
+.font-fear { 
+  font-family: 'IM Fell DW Pica', serif; 
+  text-transform: uppercase; 
+  letter-spacing: 6px; 
+  font-weight: 400;
+  font-style: italic;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+
+    #phone-wrapper {
+      width: 100%;
+      max-width: 480px;
+      background: var(--navy);
+      position: relative;
+      height: 100vh;
+      box-shadow: 0 0 100px rgba(0,0,0,0.5);
+      overflow-x: hidden;
+      overflow-y: hidden; /* Becomes auto after unlock */
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #phone-wrapper::-webkit-scrollbar { display: none; }
+
+    /* ─── GATE & ENVELOPE ─── */
+    #welcome-gate {
+      position: absolute;
+      inset: 0;
+      z-index: 1000;
+      transition: opacity 1s ease;
+    }
+
+    .envelope-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background: url('fountain.jpg') center/cover no-repeat;
+      perspective: 1500px;
+      transform-style: preserve-3d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page-half {
+      position: absolute;
+      top: 0; width: 50.5%; height: 100%; 
+      background: rgba(11, 22, 50, 0.95); 
+      backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+      transition: transform 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 5;
+    }
+    .left { left: 0; border-right: 1px solid rgba(191,227,240,0.2); transform-origin: left; }
+    .right { right: 0; border-left: 1px solid rgba(191,227,240,0.2); transform-origin: right; }
+
+    /* WAX SEAL FIX */
+    .wax-seal {
+      position: absolute;
+      top: 50%; left: 50%; 
+      transform: translate(-50%, -50%) scale(1);
+      width: 220px; 
+      height: auto;
+      z-index: 9999; 
+      cursor: pointer;
+      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease;
+      will-change: transform, opacity; 
+    }
+
+    .wax-seal.shifting { 
+      transform: translate(-50%, -130%) scale(0.65); 
+    }
+
+    .input-container {
+      position: absolute;
+      z-index: 11; text-align: center; width: 80%;
+      opacity: 0; transform: translateY(40px);
+      transition: all 0.8s ease; pointer-events: none;
+    }
+    .input-container.active { opacity: 1; transform: translateY(20px); pointer-events: all; }
+
+    #guest-input {
+      width: 100%; padding: 12px; border-radius: 25px; text-align: center;
+      background: #0b1632; border: 1px solid var(--pastel-blue); color: white;
+      outline: none; font-family: 'Montserrat', sans-serif;
+    }
+
+    .btn-open {
+      background: var(--maroon-nav); color: white; border: none; padding: 10px 40px;
+      border-radius: 25px; font-weight: 600; cursor: pointer; margin-top: 15px; letter-spacing: 2px;
+    }
+
+    .open-doors .left { transform: rotateY(-130deg); }
+    .open-doors .right { transform: rotateY(130deg); }
+    .open-doors .wax-seal { opacity: 0; pointer-events: none; transform: translate(-50%, -130%) scale(0); }
+
+    /* ─── MAIN CONTENT ─── */
+    #main-invitation { 
+      display: none; 
+      opacity: 0; 
+      transition: opacity 1.5s ease;
+      width: 100%;
+      position: relative;
+      padding-bottom: 150px;
+      color: white;
+    }
+
+    #hero {
+      height: 100vh;
+      width: 100%;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    }
+
+    #hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Pulls the image from the CSS Variable we will set in JS */
+  background-image: var(--hero-bg); 
+  background-position: center;
+  /* 'contain' prevents zooming; it shows the full image */
+  background-size: contain; 
+  background-repeat: no-repeat;
+  backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(1px);
+  z-index: 0;
+}
+
+    /* Added dynamic gradient for hero readability */
+    #hero-overlay {
+    position: absolute;
+    inset: 0;
+    /* Softens the image further and improves text contrast */
+    background: linear-gradient(180deg, rgba(6,14,31,0.2) 0%, rgba(6,14,31,0.5) 60%, rgba(0,0,0,1) 100%);
+    z-index: 1;
+}
+    #hero > div { position: relative; z-index: 2; }
+
+    .rise { opacity: 0; animation: fadeUp 1.2s ease forwards; }
+    .r1 { animation-delay: 0.5s; } .r2 { animation-delay: 0.8s; } .r5 { animation-delay: 1.7s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── COUNTDOWN ─── */
+    .countdown-container {
+      display: flex; justify-content: center; gap: 10px; margin: 10px 0;
+    }
+    .cd-item { text-align: center; }
+    .cd-number {
+      display: block; font-size: 22px; font-weight: 700; color: white;
+      background: rgba(191, 227, 240, 0.1); padding: 8px; border-radius: 8px;
+      min-width: 50px; border: 1px solid rgba(191, 227, 240, 0.2);
+    }
+    .cd-label { font-size: 8px; text-transform: uppercase; color: var(--pastel-blue); margin-top: 4px; }
+
+    /* ─── FLOW OF EVENTS ─── */
+    .timeline-container {
+      position: relative; max-width: 280px; margin: 15px auto; padding-left: 30px; text-align: left;
+    }
+    .timeline-container::before {
+      content: ''; position: absolute; left: 8px; top: 5px; bottom: 5px; width: 1px;
+      background: var(--pastel-blue); opacity: 0.3;
+    }
+    .time-item { position: relative; margin-bottom: 15px; }
+    .time-item::after {
+      content: ''; position: absolute; left: -26px; top: 5px; width: 8px; height: 8px;
+      background: var(--pastel-blue); border-radius: 50%; box-shadow: 0 0 8px var(--pastel-blue);
+    }
+    .time-label { font-weight: 600; font-size: 12px; color: var(--pastel-blue); display: block; }
+    .time-desc { font-size: 14px; color: white; opacity: 0.9; }
+
+    /* ─── WISHES ─── */
+    #wish-form {
+      background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 15px; margin-top: 15px; text-align: left;
+    }
+    #wish-input, #name-input {
+      width: 100%; background: rgba(255,255,255,0.1); border: 1px solid rgba(191, 227, 240, 0.3);
+      border-radius: 10px; padding: 10px; color: white; margin-bottom: 10px; font-family: inherit;
+    }
+    .btn-send {
+      background: var(--pastel-blue); color: var(--navy); border: none; padding: 10px 25px;
+      border-radius: 20px; font-weight: 700; cursor: pointer; width: 100%;
+    }
+    #wishes-display { margin-top: 20px; max-height: 400px; overflow-y: auto; text-align: left; }
+    .wish-bubble {
+      background: rgba(191, 227, 240, 0.1); padding: 15px; border-radius: 15px;
+      margin-bottom: 15px; border-left: 3px solid var(--pastel-blue);
+    }
+
+    #rsvp-form input, #rsvp-form select, #rsvp-form textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      border: 1px solid var(--pastel-blue);
+      background: #0b1632; 
+      color: white;
+      font-family: inherit;
+    }
+
+    #rsvp-form textarea {
+      height: 80px;
+      resize: none;
+    }
+
+    #rsvp-form input[type="number"] {
+      width: 100%; padding: 12px;
+      border-radius: 10px; border: 1px solid var(--pastel-blue);
+      background: #0b1632 !important; 
+      color: white; font-family: 'Montserrat', sans-serif; font-size: 16px;
+      outline: none;
+    }
+
+    #rsvp-form input[type="number"]::-webkit-inner-spin-button,
+    #rsvp-form input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .field-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--pastel-blue);
+      margin-bottom: 8px;
+    }
+
+    /* ─── CONTENT STYLES ─── */
+    #scroll-target { padding: 30px 24px 150px; text-align: center; position: relative; z-index: 1; }
+    #guest-display-main { font-family: 'Satisfy', cursive; font-size: 32px; color: var(--pastel-blue); margin-bottom: 25px; }
+    .parent-names-block { font-size: 14px; line-height: 1.5; margin-bottom: 40px; }
+    .invite-intro { font-size: 12px; font-weight: 400; line-height: 1.6; margin-top: 10px; }
+    .couple-names { margin: 25px 0; }
+    .english-name { font-family: 'Satisfy', cursive; font-size: 46px; line-height: 1.1; display: block; color: white; }
+    .chinese-name { font-family: serif; font-size: 32px; color: var(--pastel-blue); letter-spacing: 8px; display: block; margin: 10px 0 12px; }
+    .double-happiness { font-size: 30px; color: var(--pastel-blue); margin: 12px 0; display: block; }
+
+    .parent-english { font-family: serif, cursive; font-size: 20px; color: white; display: block; }
+    .parent-chinese { font-family: serif; font-size: 20px; color: var(--pastel-blue); letter-spacing: 5px; display: block; margin: 5px 0 15px; }
+
+    .parents-row { display: flex; justify-content: center; align-items: center; width: 100%; margin: 20px 0; }
+    .parent-group { flex: 1; text-align: center; }
+    .separator { flex: 0 0 40px; text-align: center; color: var(--pastel-blue);font-size: 18px; padding-top: 10px; }
+    .time-desc, .parent-english, .english-name { text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Adds a soft "lift" from the background */}
+    .hero-label, .hero-date, .block-title, .time-label { text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); font-weight: 700; /* Slightly thicker font for better presence */}
+
+    .content-block { margin-top: 30px; border-top: 1px solid rgba(191, 227, 240, 0.15); padding-top: 25px; }
+    .block-title { text-transform: uppercase; letter-spacing: 3px; font-weight: 600; font-size: 12px; color: var(--pastel-blue); margin-bottom: 10px; }
+    .zh-sub { display: block; font-size: 14px; opacity: 0.9; margin-top: 4px; letter-spacing: 1px; line-height: 1.4; }
+
+    /* ─── NAVIGATION ─── */
+    #bottom-nav { 
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 480px; height: var(--nav-h); 
+      background: var(--pastel-blue-glass); backdrop-filter: blur(10px);
+      display: flex; z-index: 101; border-top: 1px solid rgba(255,255,255,0.2);
+    }
+    .nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: none;
+  border: none;
+  transition: color 0.5s ease; /* Smooth transition when theme changes */
+  color: inherit; /* This allows the JS color to apply to both text and icons */
+}
+
+/* Ensure the spans inside inherit the color */
+.nav-item span {
+  color: inherit;
+}
+    #music-fab { position: absolute; top: 16px; right: 16px; width: 45px; height: 45px; border-radius: 50%; background: var(--pastel-blue-glass); color: var(--navy); z-index: 102; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+
+   .stars { 
+  position: absolute; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; 
+  pointer-events: none; 
+  z-index: 0; /* Keeps them behind the text/buttons */
+  overflow: hidden;
+}
+  .star { 
+  position: absolute; 
+  background: #fff; 
+  border-radius: 50%; 
+  animation: twinkle var(--d, 3s) ease-in-out infinite; 
+  opacity: 0; 
+}
+@keyframes twinkle { 
+  0%, 100% { opacity: 0; transform: scale(0.3); } 
+  50% { opacity: 0.8; transform: scale(1.2); } /* Slightly larger pulse for more "glow" */
+}
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body>
+
+<div id="phone-wrapper">
+  <div id="welcome-gate">
+    <div class="envelope-wrapper" id="envelope">
+      <div class="page-half left"></div>
+      <div class="page-half right"></div>
+      <img src="wax_seal.png" class="wax-seal" id="seal" onclick="showInput()" alt="Wax Seal">
+      
+      <div class="input-container" id="input-container">
+        <p style="color:white; margin-bottom:15px; font-weight:600; text-transform:uppercase; letter-spacing:2px;">Enter Your Name</p>
+        <input type="text" id="guest-input" placeholder="NAME" autocomplete="off">
+        <button class="btn-open" onclick="unlockInvitation()">OPEN</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="main-invitation">
+    <div class="stars" id="stars"></div>
+    <button id="music-fab" onclick="toggleMusic()">▶</button>
+    <audio id="bg-music" loop><source src="song.mp3" type="audio/mpeg"></audio>
+
+    <section id="hero">
+      <div class="hero-date rise r5" style="letter-spacing: 4px; font-size: 15px; margin-top: 15px; font-weight: 700; color: var(--pastel-blue); text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">WELCOME TO OUR WEDDING RECEPTION</div>
+      <div class="hero-name rise r2" style="font-family:'Satisfy'; font-size: 52px; color: white;">Dickson & Michelle</div>
+      <div class="hero-date rise r5" style="letter-spacing: 4px; font-size: 15px; margin-top: 15px; font-weight: 700; color: var(--pastel-blue); text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">17 . 10 . 2026</div>
+      <div class="hero-date rise r5" style="letter-spacing: 6px; font-size: 14px; margin-top: 8px; font-weight: 800; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">SATURDAY</div>
+    </section>
+
+    <div id="scroll-target">
+      <div id="guest-display-main" class="rise r5"></div>
+      
+      <div class="rise r5 parent-names-block">
+        <div class="parents-row">
+          <div class="parent-group">
+            <span class="parent-english">Law Arance Anthony</span>
+            <span class="parent-chinese">劳伦斯</span>
+          </div>
+          <div class="separator">&</div>
+          <div class="parent-group">
+            <span class="parent-english">Julie Joseph</span>
+            <span class="parent-chinese">朱莉</span>
+          </div>
+        </div>
+        <div class="separator">AND</div>
+        <div class="parents-row">
+          <div class="parent-group">
+            <span class="parent-english">Yong Whon Way</span>
+            <span class="parent-chinese">杨雄伟</span>
+          </div>
+          
+          <div class="separator">与</div>
+
+          <div class="parent-group">
+            <span class="parent-english">Chua Soo Mei</span>
+            <span class="parent-chinese">蔡雪梅</span>
+          </div>
+        </div>
+        <div class="invite-intro">
+          <p>Together with our families would like to cordially invite your presence to the wedding reception of our beloved children</p>
+          <span class="zh-sub">我们携同家人诚挚地邀请您出席我们挚爱子女的婚宴</span>
+        </div>
+      </div>
+
+      <div class="couple-names rise r5">
+        <span class="english-name">Dickson Yong</span>
+        <span class="chinese-name">杨迪昇</span>
+        <span class="double-happiness">囍</span>
+        <span class="english-name">Michelle Anne</span>
+        <span class="chinese-name">米雪安</span>
+      </div>
+
+      <div id="anchor-datetime" class="content-block rise r5" style="margin-top: 15px; padding-top: 15px;">
+        <p class="block-title">Date & Time<span class="zh-sub">日期与时间</span></p>
+        <p style="font-size: 18px; font-weight: 600;">Saturday, 17 October 2026</p>
+        <p style="font-size: 14px;">6:00 PM Onwards<span class="zh-sub">傍晚六时正</span></p>
+      </div>
+
+      <div id="anchor-venue" class="content-block rise r5" style="margin-top: 15px; padding-top: 15px;">
+        <p class="block-title">Venue<span class="zh-sub">地点</span></p>
+        <p style="font-weight: 600; font-size: 18px;">Concorde Hotel KL</p>
+        <p style="font-size: 13px; opacity: 0.8; margin-bottom: 12px;">2, Jln Sultan Ismail, 50250 Kuala Lumpur</p>
+        <a href="https://maps.google.com/?q=Concorde+Hotel+Kuala+Lumpur" target="_blank" class="btn-send" style="display:inline-block; text-decoration:none; width:auto; padding: 10px 30px; font-size:12px;">Open in Google Maps<span class="zh-sub" style="color:inherit; font-size:12px;">打开谷歌地图</span></a>
+        <br><br>
+        <a href="https://ul.waze.com/ul?venue_id=66650144.666566972.389329&overview=yes" target="_blank" class="btn-send" style="display:inline-block; text-decoration:none; width:auto; padding: 10px 30px; font-size:12px;">Open in Waze<span class="zh-sub" style="color:inherit; font-size:12px;">在 Waze 中打开地图</span></a>
+      </div>
+
+      <div id="anchor-dresscode" class="content-block rise r5">
+        <p class="block-title">Dress Code<span class="zh-sub">着装要求</span></p>
+        <p style="margin-bottom: 15px; font-size: 14px;"> Traditional Outfit / Formal Clothes<span class="zh-sub">传统服装 / 礼服</span></p>
+        <img src="outfit.png" alt="Dress Code" style="width: 100%; border-radius: 12px; border: 1px solid rgba(191,227,240,0.1);">
+      </div>
+
+      <div id="anchor-countdown" class="content-block rise r5">
+        <p class="block-title">The Big Day Awaits<span class="zh-sub">婚礼倒计时</span></p>
+        <div class="countdown-container" id="timer">
+          <div class="cd-item"><span class="cd-number" id="days">00</span><span class="cd-label">Days</span></div>
+          <div class="cd-item"><span class="cd-number" id="hours">00</span><span class="cd-label">Hours</span></div>
+          <div class="cd-item"><span class="cd-number" id="minutes">00</span><span class="cd-label">Min</span></div>
+          <div class="cd-item"><span class="cd-number" id="seconds">00</span><span class="cd-label">Sec</span></div>
+        </div>
+      </div>
+
+      <div id="anchor-timeline" class="content-block rise r5">
+        <p class="block-title">Flow of Events<span class="zh-sub">流程安排</span></p>
+        <div class="timeline-container">
+          <div class="time-item"><span class="time-label">6:00 PM</span><span class="time-desc">Cocktail Hour<span class="zh-sub">鸡尾酒会</span></span></div>
+          <div class="time-item"><span class="time-label">7:00 PM</span><span class="time-desc">Dinner Reception<span class="zh-sub">晚宴开始</span></span></div>
+          <div class="time-item"><span class="time-label">10:00 PM</span><span class="time-desc">After Party<span class="zh-sub">切蛋糕与敬酒仪式</span></span></div>
+        </div>
+      </div>
+      
+
+      <div class="content-block rise r5">
+        <p class="block-title">Leave a Wish<span class="zh-sub">祝福寄语</span></p>
+        <div id="wish-form">
+          <input type="text" id="name-input" placeholder="Your Name">
+          <textarea id="wish-input" placeholder="Your message..." rows="3"></textarea>
+          <button class="btn-send" onclick="submitWish()">Send Love<span class="zh-sub" style="color:inherit;">送上祝福</span></button>
+        </div>
+        <div id="wishes-display"></div>
+      </div>
+
+      <section id="rsvp-section" class="content-block rise r5">
+        <p class="block-title">RSVP<span class="zh-sub">敬请回复</span></p>
+          <div id="rsvp-form-container">
+          <form id="rsvp-form">
+            <input type="text" id="rsvp-name" placeholder="Name" name="Name" required>
+
+            <select name="Attendance" id="attendance" required>
+              <option value="" disabled selected>Will we see you there?</option>
+              <option value="yes">Joyfully Accept</option>
+              <option value="no">Regretfully Decline</option>
+            </select>
+
+            <div class="form-group">
+              <p class="field-label">Name(s) of Attendees<span class="zh-sub">出席者姓名</span></p>
+              <input type="text" name="AllAttendees" id="name_all" placeholder="Enter all names" required>
+            </div>
+
+            <div class="form-group">
+              <p class="field-label">Total Pax (Including Children)<span class="zh-sub">总出席人数</span></p>
+              <input type="number" name="AdultPax" id="rsvp-pax" min="1" max="10" placeholder="0" required>
+            </div>
+            
+            <div class="form-group">
+              <p class="field-label">Number of Children (Aged 4-12)<span class="zh-sub">儿童人数</span></p>
+              <input type="number" name="ChildrenPax" id="rsvp-kids" min="0" max="10" placeholder="0">
+            </div>
+            
+            <div class="form-group">
+              <p class="field-label">Baby Chairs Required<span class="zh-sub">婴儿椅数量</span></p>
+              <input type="number" name="BabyChairs" id="rsvp-baby-chairs" min="0" max="10" placeholder="0">
+            </div>
+            
+            <button type="submit" id="submit-rsvp-btn" class="btn-send">Submit RSVP</button>
+          </form>
+        </div>
+        <div id="era-tagline" class="rise r5">You're in our <span id="era-name">...</span> era</div>
+      </section>
+      
+      <div class="rise r5" style="margin-top: 50px; padding-bottom: 50px;">
+        <p style="font-family:'Satisfy'; font-size: 32px; color: var(--pastel-blue);">Thank You!<span class="zh-sub" style="font-family:'Montserrat'; font-size: 14px;">谢谢大家！</span></p>
+      </div>
+       
+    </div>
+
+    <nav id="bottom-nav">
+      <button class="nav-item" onclick="toggleMusic()"><span>🎤</span><span>Music</span></button>
+      <a class="nav-item" href="#anchor-venue"><span>📍</span><span>Venue</span></a>
+      <button class="nav-item" onclick="scrollToRSVP()"><span>📝</span><span>RSVP</span></button>
+    </nav>
+  </div>
+</div>
+
+<script>
+
+/** ─── THEME RANDOMIZER LOGIC ─── **/
+const themes = [
+  { 
+    // Lover: From sky blue to a rich cornflower
+    img: 'lover.png', 
+    era: 'Lover', fontClass: 'font-lover', color: '#2471A3', glass: 'rgba(191, 227, 240, 0.95)'
+  },
+  { 
+    // Midnight: From pale lavender to a deep periwinkle
+    img: 'midnight.png', 
+    era: 'MIDNIGHTS', fontClass: 'font-midnight', color: '#969fd6', glass: 'rgba(15, 20, 40, 0.95)'
+  },
+  { 
+    // Red: From light pink to a sophisticated dusty rose
+    img: 'red.png', 
+    era: 'RED', fontClass: 'font-red', color: '#7b3a1c', glass: 'rgba(60, 10, 10, 0.95)' 
+  },
+  { 
+    // Speak Now: From light lilac to a vibrant amethyst
+    img: 'speaknow.png', 
+    era: 'Speak Now', fontClass: 'font-speaknow', color: '#5B2C6F', glass: 'rgba(224, 176, 255, 0.95)'
+  },
+  { 
+    // TLOAS: From light teal to a deep seafoam/sage
+    img: 'tloas.png', 
+    era: 'The Life of A Showgirl', fontClass: 'font-tloas', 
+  color: '#0E6655', 
+  glass: 'rgba(174, 213, 129, 0.95)'
+  },
+  { 
+    img: 'ts.png', 
+    era: 'Taylor Swift', 
+    fontClass: 'font-ts', 
+    color: '#7fc7c7' 
+  },
+  { 
+    img: 'fearless.png', 
+    era: 'Fearless', 
+    fontClass: 'font-fear', 
+    color: '#cf7a1f'
+  }
+
+      // TLOAS: From light teal to a deep seafoam/sage
+    //img: 'tloas.png', 
+   // era: 'The Life of A Showgirl', fontClass: 'font-tloas', color: '#0E6655', glass: 'rgba(174, 213, 129, 0.95)'
+  //}
+];
+
+function applyRandomTheme() {
+  const selected = themes[Math.floor(Math.random() * themes.length)];
+  const root = document.querySelector(':root');
+  const bottomNav = document.getElementById('bottom-nav');
+  const eraSpan = document.getElementById('era-name');
+  // Set the images
+  document.getElementById('envelope').style.backgroundImage = `url('${selected.img}')`;
+  document.getElementById('hero').style.backgroundImage = `url('${selected.img}')`;
+  
+  // Update CSS Variables
+  root.style.setProperty('--pastel-blue', selected.color);
+  root.style.setProperty('--pastel-blue-glass', selected.glass);
+
+  if(eraSpan) {
+    eraSpan.innerText = selected.era;
+    eraSpan.className = ''; // Reset classes
+    eraSpan.classList.add(selected.fontClass);
+    eraSpan.style.color = selected.color; // Makes the "Era" name match the theme color
+  }
+
+  const lightThemes = ['speaknow.png', 'tloas.png', 'lover.png'];
+  
+  if (lightThemes.includes(selected.img)) {
+    bottomNav.style.color = '#060e1f'; // Dark Navy for light themes
+    // Update all nav items to match
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.style.color = '#060e1f';
+    });
+  } else {
+    bottomNav.style.color = '#ffffff'; // White for dark themes
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.style.color = '#ffffff';
+    });
+  }
+}
+
+// Run theme randomizer on load
+window.addEventListener('DOMContentLoaded', applyRandomTheme);
+
+function showInput() {
+  const seal = document.getElementById('seal');
+  seal.classList.add('shifting');
+  
+  setTimeout(() => {
+    document.getElementById('input-container').classList.add('active');
+  }, 200);
+}
+
+function unlockInvitation() {
+  const nameInput = document.getElementById('guest-input').value;
+  if(nameInput.trim() === "") return alert("Please enter your name.");
+  
+  document.getElementById('guest-display-main').innerText = "Dear " + nameInput + ",";
+  document.getElementById('envelope').classList.add('open-doors');
+  document.getElementById('input-container').classList.remove('active');
+  
+  document.getElementById('rsvp-name').value = nameInput;
+
+  const main = document.getElementById('main-invitation');
+  const wrapper = document.getElementById('phone-wrapper');
+  main.style.display = 'block';
+
+  setTimeout(() => {
+    document.getElementById('welcome-gate').style.opacity = '0';
+    main.style.opacity = '1';
+    
+    setTimeout(() => {
+      document.getElementById('welcome-gate').style.display = 'none';
+      wrapper.style.overflowY = 'auto'; 
+      createStars();
+      if(!playing) toggleMusic();
+    }, 9000);
+  }, 800);
+}
+
+function scrollToRSVP() {
+  document.getElementById('rsvp-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+const weddingDate = new Date("Oct 17, 2026 18:00:00").getTime();
+setInterval(() => {
+  const now = new Date().getTime();
+  const diff = weddingDate - now;
+  if (diff > 0) {
+    document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+    document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+    document.getElementById('minutes').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+    document.getElementById('seconds').innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+  }
+}, 1000);
+
+function submitWish() {
+  const name = document.getElementById('name-input').value;
+  const text = document.getElementById('wish-input').value;
+  if(!name || !text) return alert("Please fill in both fields.");
+  const display = document.getElementById('wishes-display');
+  const newWish = `<div class="wish-bubble"><p style="font-weight:700; color:var(--pastel-blue); font-size:12px; text-transform:uppercase;">${name}</p><p style="font-size:14px; margin-top:5px;">${text}</p></div>`;
+  display.insertAdjacentHTML('afterbegin', newWish);
+  document.getElementById('wish-input').value = "";
+}
+
+function createStars() {
+  const container = document.getElementById('stars');
+  const starCount = 300; // More stars for a "flooded" look
+  
+  for (let i = 0; i < starCount; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    
+    // Tiny variations in size to create perspective
+    const size = Math.random() * 1.5 + 0.5;
+    star.style.width = size + 'px'; 
+    star.style.height = size + 'px';
+    
+    // Spread across the full width and the very long height
+    star.style.left = Math.random() * 100 + '%'; 
+    star.style.top = Math.random() * 500 + '%'; 
+    
+    // Staggered timing so they don't all blink at once
+    const duration = Math.random() * 3 + 2;
+    const delay = Math.random() * 5;
+    star.style.setProperty('--d', duration + 's');
+    star.style.animationDelay = delay + 's';
+    
+    container.appendChild(star);
+  }
+}
+
+let playing = false;
+const audio = document.getElementById('bg-music');
+function toggleMusic() {
+  playing = !playing;
+  playing ? audio.play() : audio.pause();
+  document.getElementById('music-fab').textContent = playing ? '⏸' : '▶';
+}
+
+  // PASTE YOUR GOOGLE SCRIPT URL HERE
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxYuOqwyD6ZA6-6hybFsHgnBDAkZV5PZW753iO2A6Nq1ojzj6T_KVvQy0g6tFyZi5sELQ/exec';
+  const form = document.getElementById('rsvp-form');
+  const submitBtn = document.getElementById('submit-rsvp-btn');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault(); // Stops the page from refreshing
+    
+    // Change button text so the user knows it's working
+    submitBtn.innerText = 'Sending...';
+    submitBtn.disabled = true;
+
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => {
+        // Success! Change the button and clear the form
+        submitBtn.innerText = 'RSVP Received!';
+        submitBtn.style.backgroundColor = '#4CAF50'; // Turn green
+        submitBtn.style.color = 'white';
+        form.reset();
+        
+        // Optional: Show an alert
+        alert("Thank you! Your RSVP has been saved.");
+      })
+      .catch(error => {
+        console.error('Error!', error.message);
+        submitBtn.innerText = 'Error. Try Again.';
+        submitBtn.disabled = false;
+      });
+  });
+  
+</script>
+</body>
+</html>
