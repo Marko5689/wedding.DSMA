@@ -70,14 +70,14 @@
 }
 
 /* Fearless (Gold/Yellow Era) - Uses a classic, elegant serif with wide spacing */
-.font-fear { 
-  font-family: 'IM Fell DW Pica', serif; 
-  text-transform: uppercase; 
-  letter-spacing: 6px; 
-  font-weight: 400;
-  font-style: italic;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-}
+    .font-fear { 
+      font-family: 'IM Fell DW Pica', serif; 
+      text-transform: uppercase; 
+      letter-spacing: 6px; 
+      font-weight: 400;
+      font-style: italic;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
 
 
     #phone-wrapper {
@@ -168,13 +168,22 @@
 
     /* ─── MAIN CONTENT ─── */
     #main-invitation { 
-      display: none; 
+      visibility: hidden;
+      pointer-events: none; 
       opacity: 0; 
       transition: opacity 1.5s ease;
       width: 100%;
+      position: absolute;
       position: relative;
       padding-bottom: 150px;
       color: white;
+    }
+
+    #main-invitation.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      position: relative;
     }
 
     #hero {
@@ -187,27 +196,28 @@
     }
 
     #hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  /* Pulls the image from the CSS Variable we will set in JS */
-  background-image: var(--hero-bg); 
-  background-position: center;
-  /* 'contain' prevents zooming; it shows the full image */
-  background-size: contain; 
-  background-repeat: no-repeat;
-  backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(1px);
-  z-index: 0;
-}
+      content: "";
+      position: absolute;
+      inset: 0;
+      /* Pulls the image from the CSS Variable we will set in JS */
+      background-image: var(--hero-bg); 
+      background-position: center;
+      /* 'contain' prevents zooming; it shows the full image */
+      background-size: contain; 
+      background-repeat: no-repeat;
+      backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(1px);
+      z-index: 0;
+      will-change: transform, opacity;
+    }
 
     /* Added dynamic gradient for hero readability */
     #hero-overlay {
-    position: absolute;
-    inset: 0;
-    /* Softens the image further and improves text contrast */
-    background: linear-gradient(180deg, rgba(6,14,31,0.2) 0%, rgba(6,14,31,0.5) 60%, rgba(0,0,0,1) 100%);
-    z-index: 1;
-}
+      position: absolute;
+      inset: 0;
+      /* Softens the image further and improves text contrast */
+      background: linear-gradient(180deg, rgba(6,14,31,0.2) 0%, rgba(6,14,31,0.5) 60%, rgba(0,0,0,1) 100%);
+      z-index: 1;
+    }
     #hero > div { position: relative; z-index: 2; }
 
     .rise { opacity: 0; animation: fadeUp 1.2s ease forwards; }
@@ -386,12 +396,23 @@
 </head>
 <body>
 
+<div style="display:none;">
+  <img src='img/lover.webp'>
+  <img src='img/tloas.webp'>
+  <img src='img/fearless.webp'>
+  <img src='img/midnight.webp''>
+  <img src='img/red.webp'>
+  <img src='img/speaknow.webp'>
+  <img src='img/ts.webp'>
+  <img src='img/outfit.png'>
+</div>
+
 <div id="phone-wrapper">
   <div id="welcome-gate">
     <div class="envelope-wrapper" id="envelope">
       <div class="page-half left"></div>
       <div class="page-half right"></div>
-      <img src="wax_seal.png" class="wax-seal" id="seal" onclick="showInput()" alt="Wax Seal">
+      <img src="img/wax_seal.png" class="wax-seal" id="seal" onclick="showInput()" alt="Wax Seal">
       
       <div class="input-container" id="input-container">
         <p style="color:white; margin-bottom:15px; font-weight:600; text-transform:uppercase; letter-spacing:2px;">Enter Your Name</p>
@@ -404,7 +425,7 @@
   <div id="main-invitation">
     <div class="stars" id="stars"></div>
     <button id="music-fab" onclick="toggleMusic()">▶</button>
-    <audio id="bg-music" loop><source src="song.mp3" type="audio/mpeg"></audio>
+    <!--<audio id="bg-music" loop><source src="song.mp3" type="audio/mpeg"></audio>-->
 
     <section id="hero">
       <div class="hero-date rise r5" style="letter-spacing: 4px; font-size: 15px; margin-top: 15px; font-weight: 700; color: var(--pastel-blue); text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">WELCOME TO OUR WEDDING RECEPTION</div>
@@ -561,43 +582,46 @@
 
 <script>
 
+const bgMusic = new Audio('song.mp3');
+bgMusic.preload = "auto";
+
 /** ─── THEME RANDOMIZER LOGIC ─── **/
 const themes = [
   { 
     // Lover: From sky blue to a rich cornflower
-    img: 'lover.png', 
+    img: 'img/lover.webp', 
     era: 'Lover', fontClass: 'font-lover', color: '#2471A3', glass: 'rgba(191, 227, 240, 0.95)'
   },
   { 
     // Midnight: From pale lavender to a deep periwinkle
-    img: 'midnight.png', 
+    img: 'img/midnight.webp', 
     era: 'MIDNIGHTS', fontClass: 'font-midnight', color: '#969fd6', glass: 'rgba(15, 20, 40, 0.95)'
   },
   { 
     // Red: From light pink to a sophisticated dusty rose
-    img: 'red.png', 
+    img: 'img/red.webp', 
     era: 'RED', fontClass: 'font-red', color: '#7b3a1c', glass: 'rgba(60, 10, 10, 0.95)' 
   },
   { 
     // Speak Now: From light lilac to a vibrant amethyst
-    img: 'speaknow.png', 
+    img: 'img/speaknow.webp', 
     era: 'Speak Now', fontClass: 'font-speaknow', color: '#5B2C6F', glass: 'rgba(224, 176, 255, 0.95)'
   },
   { 
     // TLOAS: From light teal to a deep seafoam/sage
-    img: 'tloas.png', 
+    img: 'img/tloas.webp', 
     era: 'The Life of A Showgirl', fontClass: 'font-tloas', 
   color: '#0E6655', 
   glass: 'rgba(174, 213, 129, 0.95)'
   },
   { 
-    img: 'ts.png', 
+    img: 'img/ts.webp', 
     era: 'Taylor Swift', 
     fontClass: 'font-ts', 
     color: '#7fc7c7' 
   },
   { 
-    img: 'fearless.png', 
+    img: 'img/fearless.webp', 
     era: 'Fearless', 
     fontClass: 'font-fear', 
     color: '#cf7a1f'
@@ -648,9 +672,6 @@ function applyRandomTheme() {
 // Run theme randomizer on load
 window.addEventListener('DOMContentLoaded', applyRandomTheme);
 
-const bgMusic = new Audio('song.mp3');
-bgMusic.preload = "auto";
-
 function showInput() {
   const seal = document.getElementById('seal');
   seal.classList.add('shifting');
@@ -664,6 +685,8 @@ function unlockInvitation() {
   const nameInput = document.getElementById('guest-input').value;
   if(nameInput.trim() === "") return alert("Please enter your name.");
   
+  document.getElementById('welcome-gate').style.display = 'none';
+  
   bgMusic.play().catch(e => console.log("Playback prevented by browser"));
   document.getElementById('guest-display-main').innerText = "Dear " + nameInput + ",";
   document.getElementById('envelope').classList.add('open-doors');
@@ -671,7 +694,10 @@ function unlockInvitation() {
   
   document.getElementById('rsvp-name').value = nameInput;
 
+  
+
   const main = document.getElementById('main-invitation');
+  main.classList.add('active');
   const wrapper = document.getElementById('phone-wrapper');
   main.style.display = 'block';
 
@@ -686,6 +712,8 @@ function unlockInvitation() {
       if(!playing) toggleMusic();
     }, 9000);
   }, 800);
+
+  bgMusic.play();
 }
 
 function scrollToRSVP() {
