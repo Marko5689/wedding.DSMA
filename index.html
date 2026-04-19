@@ -578,6 +578,7 @@
       <button class="nav-item" onclick="toggleMusic()"><span>🎤</span><span>Music</span></button>
       <a class="nav-item" href="#anchor-venue"><span>📍</span><span>Venue</span></a>
       <button class="nav-item" onclick="scrollToRSVP()"><span>📝</span><span>RSVP</span></button>
+      <button class="nav-item" onclick="shuffleTheme()"><span>✨</span><span>Shuffle</span></button>
     </nav>
   </div>
 </div>
@@ -632,16 +633,94 @@ const themes = [
   //}
 ];
 
+// function applyRandomTheme() {
+
+//   let savedThemeEra = localStorage.getItem('weddingTheme');
+//   let selectedTheme;
+
+//   if (savedThemeEra) {
+//     // 2. If a theme was already saved, find it in your themes array
+//     selectedTheme = themes.find(t => t.era === savedThemeEra);
+//   }
+
+//   if (!selectedTheme) {
+//     selectedTheme = themes[Math.floor(Math.random() * themes.length)];
+//     // Save it so it's fixed for the next refresh
+//     localStorage.setItem('weddingTheme', selectedTheme.era);
+//   }
+
+//   const hero = document.getElementById('hero');
+//   const themeTitle = document.getElementById('theme-title');
+//   const eraLabel = document.getElementById('era-label');
+
+//   document.documentElement.style.setProperty('--accent-color', selectedTheme.color);
+
+//   hero.style.setProperty('--bg-image', `url('${selectedTheme.img}')`);
+//   themeTitle.textContent = selectedTheme.title;
+//   eraLabel.textContent = `The ${selectedTheme.era} Era`;
+
+  //const selected = themes[Math.floor(Math.random() * themes.length)];
+  //const root = document.querySelector(':root');
+  //const bottomNav = document.getElementById('bottom-nav');
+  //const eraSpan = document.getElementById('era-name');
+  // Set the images
+  // document.getElementById('envelope').style.backgroundImage = `url('${selected.img}')`;
+  // document.getElementById('hero').style.backgroundImage = `url('${selected.img}')`;
+  
+  // Update CSS Variables
+  // root.style.setProperty('--pastel-blue', selected.color);
+  // root.style.setProperty('--pastel-blue-glass', selected.glass);
+
+  // if(eraSpan) {
+  //   eraSpan.innerText = selected.era;
+  //   eraSpan.className = ''; // Reset classes
+  //   eraSpan.classList.add(selected.fontClass);
+  //   eraSpan.style.color = selected.color; // Makes the "Era" name match the theme color
+  // }
+
+  // const lightThemes = ['img/speaknow.webp', 'img/tloas.webp', 'img/lover.webp'];
+  
+  // if (lightThemes.includes(selected.img)) {
+  //   bottomNav.style.color = '#060e1f'; // Dark Navy for light themes
+  //   // Update all nav items to match
+  //   document.querySelectorAll('.nav-item').forEach(item => {
+  //     item.style.color = '#060e1f';
+  //   });
+  // } else {
+  //   bottomNav.style.color = '#ffffff'; // White for dark themes
+  //   document.querySelectorAll('.nav-item').forEach(item => {
+  //     item.style.color = '#ffffff';
+  //   });
+  // }
+//}
+
 function applyRandomTheme() {
-  const selected = themes[Math.floor(Math.random() * themes.length)];
+  // 1. Try to get a saved theme from the browser's memory
+  let savedThemeEra = localStorage.getItem('weddingTheme');
+  let selected;
+
+  if (savedThemeEra) {
+    // 2. If a theme was already saved, find it in your themes array
+    selected = themes.find(t => t.era === savedThemeEra);
+  }
+
+  // 3. If no theme was saved (first time visit) OR if the saved theme was lost
+  if (!selected) {
+    selected = themes[Math.floor(Math.random() * themes.length)];
+    // Save it so it's fixed for the next refresh
+    localStorage.setItem('weddingTheme', selected.era);
+  }
+
+  // 4. Apply the theme to the page (Restored your specific code!)
   const root = document.querySelector(':root');
   const bottomNav = document.getElementById('bottom-nav');
   const eraSpan = document.getElementById('era-name');
-  // Set the images
+
+  // Set the images for BOTH the envelope and the hero section
   document.getElementById('envelope').style.backgroundImage = `url('${selected.img}')`;
   document.getElementById('hero').style.backgroundImage = `url('${selected.img}')`;
   
-  // Update CSS Variables
+  // Update your specific CSS Variables
   root.style.setProperty('--pastel-blue', selected.color);
   root.style.setProperty('--pastel-blue-glass', selected.glass);
 
@@ -649,14 +728,14 @@ function applyRandomTheme() {
     eraSpan.innerText = selected.era;
     eraSpan.className = ''; // Reset classes
     eraSpan.classList.add(selected.fontClass);
-    eraSpan.style.color = selected.color; // Makes the "Era" name match the theme color
+    eraSpan.style.color = selected.color; 
   }
 
+  // Restore the Light/Dark text toggling for your navigation bar
   const lightThemes = ['img/speaknow.webp', 'img/tloas.webp', 'img/lover.webp'];
   
   if (lightThemes.includes(selected.img)) {
     bottomNav.style.color = '#060e1f'; // Dark Navy for light themes
-    // Update all nav items to match
     document.querySelectorAll('.nav-item').forEach(item => {
       item.style.color = '#060e1f';
     });
@@ -666,6 +745,11 @@ function applyRandomTheme() {
       item.style.color = '#ffffff';
     });
   }
+}
+
+function shuffleTheme() {
+    localStorage.removeItem('weddingTheme'); // Clear the fixed memory
+    location.reload(); // Refresh the page to trigger a new random theme
 }
 
 // Run theme randomizer on load
