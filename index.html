@@ -648,6 +648,9 @@ function applyRandomTheme() {
 // Run theme randomizer on load
 window.addEventListener('DOMContentLoaded', applyRandomTheme);
 
+const bgMusic = new Audio('song.mp3');
+bgMusic.preload = "auto";
+
 function showInput() {
   const seal = document.getElementById('seal');
   seal.classList.add('shifting');
@@ -661,6 +664,7 @@ function unlockInvitation() {
   const nameInput = document.getElementById('guest-input').value;
   if(nameInput.trim() === "") return alert("Please enter your name.");
   
+  bgMusic.play().catch(e => console.log("Playback prevented by browser"));
   document.getElementById('guest-display-main').innerText = "Dear " + nameInput + ",";
   document.getElementById('envelope').classList.add('open-doors');
   document.getElementById('input-container').classList.remove('active');
