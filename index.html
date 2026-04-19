@@ -174,7 +174,6 @@
       transition: opacity 1.5s ease;
       width: 100%;
       position: absolute;
-      position: relative;
       padding-bottom: 150px;
       color: white;
     }
@@ -397,14 +396,14 @@
 <body>
 
 <div style="display:none;">
-  <img src='img/lover.webp'>
-  <img src='img/tloas.webp'>
-  <img src='img/fearless.webp'>
-  <img src='img/midnight.webp''>
-  <img src='img/red.webp'>
-  <img src='img/speaknow.webp'>
-  <img src='img/ts.webp'>
-  <img src='img/outfit.png'>
+  <img src='img/lover.webp' decoding="async">
+  <img src='img/tloas.webp' decoding="async">
+  <img src='img/fearless.webp' decoding="async">
+  <img src='img/midnight.webp' decoding="async">
+  <img src='img/red.webp' decoding="async">
+  <img src='img/speaknow.webp' decoding="async">
+  <img src='img/ts.webp' decoding="async">
+  <img src='img/outfit.png' decoding="async">
 </div>
 
 <div id="phone-wrapper">
@@ -425,7 +424,7 @@
   <div id="main-invitation">
     <div class="stars" id="stars"></div>
     <button id="music-fab" onclick="toggleMusic()">▶</button>
-    <!--<audio id="bg-music" loop><source src="song.mp3" type="audio/mpeg"></audio>-->
+    <audio id="bg-music" loop><source src="song.mp3" type="audio/mpeg"></audio>
 
     <section id="hero">
       <div class="hero-date rise r5" style="letter-spacing: 4px; font-size: 15px; margin-top: 15px; font-weight: 700; color: var(--pastel-blue); text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">WELCOME TO OUR WEDDING RECEPTION</div>
@@ -495,7 +494,7 @@
       <div id="anchor-dresscode" class="content-block rise r5">
         <p class="block-title">Dress Code<span class="zh-sub">着装要求</span></p>
         <p style="margin-bottom: 15px; font-size: 14px;"> Traditional Outfit / Formal Clothes<span class="zh-sub">传统服装 / 礼服</span></p>
-        <img src="outfit.png" alt="Dress Code" style="width: 100%; border-radius: 12px; border: 1px solid rgba(191,227,240,0.1);">
+        <img src="img/outfit.png" alt="Dress Code" style="width: 100%; border-radius: 12px; border: 1px solid rgba(191,227,240,0.1);">
       </div>
 
       <div id="anchor-countdown" class="content-block rise r5">
@@ -582,9 +581,6 @@
 
 <script>
 
-const bgMusic = new Audio('song.mp3');
-bgMusic.preload = "auto";
-
 /** ─── THEME RANDOMIZER LOGIC ─── **/
 const themes = [
   { 
@@ -653,7 +649,7 @@ function applyRandomTheme() {
     eraSpan.style.color = selected.color; // Makes the "Era" name match the theme color
   }
 
-  const lightThemes = ['speaknow.png', 'tloas.png', 'lover.png'];
+  const lightThemes = ['img/speaknow.webp', 'img/tloas.webp', 'img/lover.webp'];
   
   if (lightThemes.includes(selected.img)) {
     bottomNav.style.color = '#060e1f'; // Dark Navy for light themes
@@ -686,15 +682,13 @@ function unlockInvitation() {
   if(nameInput.trim() === "") return alert("Please enter your name.");
   
   document.getElementById('welcome-gate').style.display = 'none';
-  
-  bgMusic.play().catch(e => console.log("Playback prevented by browser"));
+
+  //bgMusic.play().catch(e => console.log("Playback prevented by browser"));
   document.getElementById('guest-display-main').innerText = "Dear " + nameInput + ",";
   document.getElementById('envelope').classList.add('open-doors');
   document.getElementById('input-container').classList.remove('active');
   
   document.getElementById('rsvp-name').value = nameInput;
-
-  
 
   const main = document.getElementById('main-invitation');
   main.classList.add('active');
@@ -710,10 +704,8 @@ function unlockInvitation() {
       wrapper.style.overflowY = 'auto'; 
       createStars();
       if(!playing) toggleMusic();
-    }, 9000);
+    }, 800);
   }, 800);
-
-  bgMusic.play();
 }
 
 function scrollToRSVP() {
@@ -744,38 +736,33 @@ function submitWish() {
 
 function createStars() {
   const container = document.getElementById('stars');
-  const starCount = 300; // More stars for a "flooded" look
+  const fragment = document.createDocumentFragment(); // Builds in memory
+  const starCount = 100; // 100 is plenty for a "flooded" look without the lag
   
   for (let i = 0; i < starCount; i++) {
     const star = document.createElement('div');
     star.className = 'star';
-    
-    // Tiny variations in size to create perspective
     const size = Math.random() * 1.5 + 0.5;
     star.style.width = size + 'px'; 
     star.style.height = size + 'px';
-    
-    // Spread across the full width and the very long height
     star.style.left = Math.random() * 100 + '%'; 
-    star.style.top = Math.random() * 500 + '%'; 
+    star.style.top = Math.random() * 200 + '%'; // Reduced from 500% to save memory
     
-    // Staggered timing so they don't all blink at once
     const duration = Math.random() * 3 + 2;
-    const delay = Math.random() * 5;
     star.style.setProperty('--d', duration + 's');
-    star.style.animationDelay = delay + 's';
-    
-    container.appendChild(star);
+    star.style.animationDelay = Math.random() * 5 + 's';
+    fragment.appendChild(star);
   }
+  container.appendChild(fragment); // Injects all stars in one single frame
 }
 
-let playing = false;
-const audio = document.getElementById('bg-music');
-function toggleMusic() {
-  playing = !playing;
-  playing ? audio.play() : audio.pause();
-  document.getElementById('music-fab').textContent = playing ? '⏸' : '▶';
-}
+  let playing = false;
+  const audio = document.getElementById('bg-music');
+  function toggleMusic() {
+    playing = !playing;
+    playing ? audio.play() : audio.pause();
+    document.getElementById('music-fab').textContent = playing ? '⏸' : '▶';
+  }
 
   // PASTE YOUR GOOGLE SCRIPT URL HERE
   const scriptURL = 'https://script.google.com/macros/s/AKfycbxYuOqwyD6ZA6-6hybFsHgnBDAkZV5PZW753iO2A6Nq1ojzj6T_KVvQy0g6tFyZi5sELQ/exec';
