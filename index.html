@@ -5,10 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Wedding Reception of Dickson & Michelle | Saturday, 17/10/2026</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=IM+Fell+DW+Pica:ital@0;1&family=Montserrat:wght@200;300;400;600;700&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,700;1,400&family=Satisfy&display=swap" rel="stylesheet">
-  <!--<link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Montserrat:wght@200;300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Montserrat:wght@200;300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Montserrat:wght@200;300;400;700&family=Pinyon+Script&family=IM+Fell+DW+Pica:ital@0;1&display=swap" rel="stylesheet">-->
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -561,6 +557,8 @@
               <p class="field-label">Baby Chairs Required<span class="zh-sub">婴儿椅数量</span></p>
               <input type="number" name="BabyChairs" id="rsvp-baby-chairs" min="0" max="10" placeholder="0">
             </div>
+
+            <input type="hidden" name="theme" id="themeField">
             
             <button type="submit" id="submit-rsvp-btn" class="btn-send">Submit RSVP</button>
           </form>
@@ -833,7 +831,7 @@ function createStars() {
     star.style.width = size + 'px'; 
     star.style.height = size + 'px';
     star.style.left = Math.random() * 100 + '%'; 
-    star.style.top = Math.random() * 200 + '%'; // Reduced from 500% to save memory
+    star.style.top = Math.random() * 200 + '%'; 
     
     const duration = Math.random() * 3 + 2;
     star.style.setProperty('--d', duration + 's');
@@ -851,7 +849,6 @@ function createStars() {
     document.getElementById('music-fab').textContent = playing ? '⏸' : '▶';
   }
 
-  // PASTE YOUR GOOGLE SCRIPT URL HERE
   const scriptURL = 'https://script.google.com/macros/s/AKfycbxYuOqwyD6ZA6-6hybFsHgnBDAkZV5PZW753iO2A6Nq1ojzj6T_KVvQy0g6tFyZi5sELQ/exec';
   const form = document.getElementById('rsvp-form');
   const submitBtn = document.getElementById('submit-rsvp-btn');
@@ -862,6 +859,8 @@ function createStars() {
     // Change button text so the user knows it's working
     submitBtn.innerText = 'Sending...';
     submitBtn.disabled = true;
+
+    document.getElementById("themeField").value = localStorage.getItem("weddingTheme");
 
     fetch(scriptURL, { method: 'POST', body: new FormData(form)})
       .then(response => {
