@@ -563,7 +563,7 @@
 
     <nav id="bottom-nav">
       <button class="nav-item" onclick="toggleMusic()"><span>🎤</span><span>Music</span></button>
-      <a class="nav-item" href="#anchor-venue"><span>📍</span><span>Venue</span></a>
+      <a class="nav-item" onclick="scrollToVenue()"><span>📍</span><span>Venue</span></a>
       <button class="nav-item" onclick="scrollToRSVP()"><span>📝</span><span>RSVP</span></button>
       <!--<button class="nav-item" onclick="shuffleTheme()"><span>✨</span><span>Shuffle</span></button>-->
     </nav>
@@ -790,6 +790,10 @@ function unlockInvitation() {
 
 function scrollToRSVP() {
   document.getElementById('rsvp-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function scrollToVenue() {
+  document.getElementById('anchor-venue').scrollIntoView({ behavior: 'smooth' });
 }
 
 const weddingDate = new Date("Oct 17, 2026 18:00:00").getTime();
