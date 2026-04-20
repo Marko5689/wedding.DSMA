@@ -392,23 +392,12 @@
 </head>
 <body>
 
-<div style="display:none;">
-  <img src='img/lover.webp' decoding="async">
-  <img src='img/tloas.webp' decoding="async">
-  <img src='img/fearless.webp' decoding="async">
-  <img src='img/midnight.webp' decoding="async">
-  <img src='img/red.webp' decoding="async">
-  <img src='img/speaknow.webp' decoding="async">
-  <img src='img/ts.webp' decoding="async">
-  <img src='img/outfit.png' decoding="async">
-</div>
-
 <div id="phone-wrapper">
   <div id="welcome-gate">
     <div class="envelope-wrapper" id="envelope">
       <div class="page-half left"></div>
       <div class="page-half right"></div>
-      <img src="img/wax_seal.png" class="wax-seal" id="seal" onclick="showInput()" alt="Wax Seal">
+      <img src="img/wax_seal.webp" class="wax-seal" id="seal" onclick="showInput()" alt="Wax Seal" decoding="async">
       
       <div class="input-container" id="input-container">
         <p style="color:white; margin-bottom:15px; font-weight:600; text-transform:uppercase; letter-spacing:2px;">Enter Your Name</p>
@@ -519,9 +508,9 @@
       <div class="content-block rise r5">
         <p class="block-title">Leave a Wish<span class="zh-sub">祝福寄语</span></p>
         <div id="wish-form">
-          <input type="text" id="name-input" placeholder="Your Name">
-          <textarea id="wish-input" placeholder="Your message..." rows="3"></textarea>
-          <button class="btn-send" onclick="submitWish()">Send Love<span class="zh-sub" style="color:inherit;">送上祝福</span></button>
+          <input type="text" id="wish-name-input" name='Name' placeholder="Your Name" hidden>
+          <textarea id="wish-input" name='Message' placeholder="Your message..." rows="3"></textarea>
+          <button class="btn-send" id='love-btn-send' onclick="submitWish()">Send Love<span class="zh-sub" style="color:inherit;">送上祝福</span></button>
         </div>
         <div id="wishes-display"></div>
       </div>
@@ -534,8 +523,8 @@
 
             <select name="Attendance" id="attendance" required>
               <option value="" disabled selected>Will we see you there?</option>
-              <option value="yes">Joyfully Accept</option>
-              <option value="no">Regretfully Decline</option>
+              <option value="yes">Joyfully Accept / 肯定出席</option>
+              <option value="no">Regretfully Decline / 遗憾缺席</option>
             </select>
 
             <div class="form-group">
@@ -576,7 +565,7 @@
       <button class="nav-item" onclick="toggleMusic()"><span>🎤</span><span>Music</span></button>
       <a class="nav-item" href="#anchor-venue"><span>📍</span><span>Venue</span></a>
       <button class="nav-item" onclick="scrollToRSVP()"><span>📝</span><span>RSVP</span></button>
-      <button class="nav-item" onclick="shuffleTheme()"><span>✨</span><span>Shuffle</span></button>
+      <!--<button class="nav-item" onclick="shuffleTheme()"><span>✨</span><span>Shuffle</span></button>-->
     </nav>
   </div>
 </div>
@@ -692,6 +681,13 @@ const themes = [
   // }
 //}
 
+const scriptURL = 'https://script.google.com/macros/s/AKfycby7QSRoSzF2VH4ht9plWa8lfNczndoBT--FhsoT02P__StWoWBB4fkxKp1BusvBlfoy9A/exec';
+
+// Run theme randomizer on load
+window.addEventListener('DOMContentLoaded', applyRandomTheme);
+
+loadWishes();
+
 function applyRandomTheme() {
   // 1. Try to get a saved theme from the browser's memory
   let savedThemeEra = localStorage.getItem('weddingTheme');
@@ -745,13 +741,11 @@ function applyRandomTheme() {
   }
 }
 
-function shuffleTheme() {
-    localStorage.removeItem('weddingTheme'); // Clear the fixed memory
-    location.reload(); // Refresh the page to trigger a new random theme
-}
-
-// Run theme randomizer on load
-window.addEventListener('DOMContentLoaded', applyRandomTheme);
+//function shuffleTheme() {
+    //localStorage.removeItem('weddingTheme'); // Clear the fixed memory
+    // // Refresh the page to trigger a new random theme
+    //window.location.href = window.location.pathname + window.location.search;
+//}
 
 function showInput() {
   const seal = document.getElementById('seal');
@@ -774,6 +768,7 @@ function unlockInvitation() {
   document.getElementById('input-container').classList.remove('active');
   
   document.getElementById('rsvp-name').value = nameInput;
+  document.getElementById('wish-name-input').value = nameInput;
 
   const main = document.getElementById('main-invitation');
   main.classList.add('active');
@@ -809,14 +804,60 @@ setInterval(() => {
   }
 }, 1000);
 
-function submitWish() {
-  const name = document.getElementById('name-input').value;
-  const text = document.getElementById('wish-input').value;
-  if(!name || !text) return alert("Please fill in both fields.");
+async function submitWish() {
+  const nameInput = document.getElementById('wish-name-input');
+  const wishInput = document.getElementById('wish-input');
+  const btn = document.getElementById('love-btn-send');
+
+  if (!wishInput.value) {
+    alert("Please fill in your wish!");
+    return;
+  }
+
+  btn.innerText = "Sending...";
+  btn.disabled = true;
+
+  const formData = new FormData();
+  formData.append('type', 'wish'); // This tells your Google Script it's a wish, not an RSVP
+  formData.append('name', nameInput.value);
+  formData.append('message', wishInput.value);
+
+  try {
+    await fetch(scriptURL, { method: 'POST', body: formData });
+    
+    // Success! 
+    btn.innerText = "Sent! ✨";
+    nameInput.value = "";
+    wishInput.value = "";
+    
+    // Optional: Refresh the wishes display if you have a loadWishes() function
+    if (typeof loadWishes === "function") loadWishes();
+    
+  } catch (error) {
+    console.error("Error!", error.message);
+    btn.innerText = "Try Again";
+    btn.disabled = false;
+  }
+}
+
+async function loadWishes() {
   const display = document.getElementById('wishes-display');
-  const newWish = `<div class="wish-bubble"><p style="font-weight:700; color:var(--pastel-blue); font-size:12px; text-transform:uppercase;">${name}</p><p style="font-size:14px; margin-top:5px;">${text}</p></div>`;
-  display.insertAdjacentHTML('afterbegin', newWish);
-  document.getElementById('wish-input').value = "";
+  //display.innerHTML = "Checking for messages...";
+
+  try {
+    const response = await fetch(scriptURL);
+    const wishes = await response.json();
+    
+    display.innerHTML = wishes.map(w => `
+      <div class="wish-item" style="border-bottom: 1px solid rgba(255,255,255,0.1); padding: 10px 0;">
+        <strong style="color: var(--pastel-blue);">${w.name}</strong>
+        <p style="font-style: italic; font-size: 0.9em; margin-top: 5px;">"${w.message}"</p>
+      </div>
+    `).join('');
+    
+  } catch (error) {
+    display.innerHTML = "Could not load wishes.";
+  }
 }
 
 function createStars() {
@@ -849,7 +890,7 @@ function createStars() {
     document.getElementById('music-fab').textContent = playing ? '⏸' : '▶';
   }
 
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbxYuOqwyD6ZA6-6hybFsHgnBDAkZV5PZW753iO2A6Nq1ojzj6T_KVvQy0g6tFyZi5sELQ/exec';
+  
   const form = document.getElementById('rsvp-form');
   const submitBtn = document.getElementById('submit-rsvp-btn');
 
