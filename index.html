@@ -96,8 +96,9 @@
     #welcome-gate {
       position: absolute;
       inset: 0;
-      z-index: 1000;
+      z-index: 5000;
       transition: opacity 1s ease;
+      background: var(--navy);
     }
 
     .envelope-wrapper {
@@ -130,7 +131,7 @@
       transform: translate(-50%, -50%) scale(1);
       width: 220px; 
       height: auto;
-      z-index: 9999; 
+      z-index: 10000; 
       cursor: pointer;
       transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease;
       will-change: transform, opacity; 
@@ -165,7 +166,7 @@
 
     /* ─── MAIN CONTENT ─── */
     #main-invitation { 
-      visibility: hidden;
+      display: none; 
       pointer-events: none; 
       opacity: 0; 
       transition: opacity 1.5s ease;
@@ -173,6 +174,7 @@
       position: absolute;
       padding-bottom: 150px;
       color: white;
+      z-index: 1;
     }
 
     #main-invitation.active {
@@ -500,11 +502,11 @@
         <div class="timeline-container">
           <div class="time-item"><span class="time-label">6:00 PM</span><span class="time-desc">Cocktail Hour<span class="zh-sub">鸡尾酒会</span></span></div>
           <div class="time-item"><span class="time-label">7:00 PM</span><span class="time-desc">Dinner Reception<span class="zh-sub">晚宴开始</span></span></div>
+          <div class="time-item"><span class="time-label">8:30 PM</span><span class="time-desc">Alcohol Toasting<span class="zh-sub">敬酒仪式</span></span></div>
           <div class="time-item"><span class="time-label">10:00 PM</span><span class="time-desc">After Party<span class="zh-sub">Round 2</span></span></div>
         </div>
       </div>
       
-
       <div class="content-block rise r5">
         <p class="block-title">Leave a Wish<span class="zh-sub">祝福寄语</span></p>
         <div id="wish-form">
@@ -684,9 +686,6 @@ const themes = [
 const scriptURL = 'https://script.google.com/macros/s/AKfycby7QSRoSzF2VH4ht9plWa8lfNczndoBT--FhsoT02P__StWoWBB4fkxKp1BusvBlfoy9A/exec';
 
 // Run theme randomizer on load
-window.addEventListener('DOMContentLoaded', applyRandomTheme);
-
-loadWishes();
 
 function applyRandomTheme() {
   // 1. Try to get a saved theme from the browser's memory
@@ -846,7 +845,7 @@ async function submitWish() {
 
 async function loadWishes() {
   const display = document.getElementById('wishes-display');
-  //display.innerHTML = "Checking for messages...";
+  display.innerHTML = "";
 
   try {
     const response = await fetch(scriptURL);
@@ -863,6 +862,12 @@ async function loadWishes() {
     display.innerHTML = "Could not load wishes.";
   }
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+  applyRandomTheme();
+
+  loadWishes();
+});
 
 function createStars() {
   const container = document.getElementById('stars');
