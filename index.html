@@ -552,7 +552,7 @@
 
             <div class="form-group">
               <p class="field-label">Phone No<span class="zh-sub">手机号码</span></p>
-              <input type="tel" name="Handphones" id="rsvp-handphones" placeholder="0123456789" required>
+              <input type="tel" name="Handphones" id="rsvp-handphones" placeholder="0123456789" oninput="validateMalaysianPhone()" required>
               <span id="phone-error" style="color: red; display: none; font-size: 12px;">Please enter a valid Malaysian phone number (e.g., 0123456789 or 01123456789).</span>
             </div>
 
@@ -936,6 +936,34 @@ function createStars() {
         submitBtn.disabled = false;
       });
   });
+
+  function validateMalaysianPhone() {
+  const phoneInput = document.getElementById('rsvp-handphones');
+  const errorSpan = document.getElementById('phone-error');
+  
+  // Safety check to ensure elements exist in the DOM before running
+  if (!phoneInput || !errorSpan) return false;
+
+  // 1. Clean the input: Remove spaces, dashes, or parentheses
+  let num = phoneInput.value.replace(/[\s\-\(\)]/g, '');
+  
+  // 2. The Malaysian Mobile Pattern
+  const myPhoneRegex = /^(?:\+?6?01)[0-46-9]\d{7}$|^(?:\+?6?01)1\d{8}$/;
+  
+  if (num === "") {
+    errorSpan.style.display = 'none';
+    phoneInput.setCustomValidity(""); 
+    return true; // Empty can be valid if field isn't "required"
+  } else if (myPhoneRegex.test(num)) {
+    errorSpan.style.display = 'none';
+    phoneInput.setCustomValidity(""); 
+    return true; // Valid number!
+  } else {
+    errorSpan.style.display = 'block';
+    phoneInput.setCustomValidity("Invalid format"); 
+    return false; // Invalid number
+  }
+}
   
 </script>
 </body>
