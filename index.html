@@ -550,6 +550,12 @@
               <input type="number" name="BabyChairs" id="rsvp-baby-chairs" min="0" max="10" placeholder="0">
             </div>
 
+            <div class="form-group">
+              <p class="field-label">Phone No<span class="zh-sub">手机号码</span></p>
+              <input type="tel" name="Handphones" id="rsvp-handphones" placeholder="0123456789" required>
+              <span id="phone-error" style="color: red; display: none; font-size: 12px;">Please enter a valid Malaysian phone number (e.g., 0123456789 or 01123456789).</span>
+            </div>
+
             <input type="hidden" name="theme" id="themeField">
             
             <button type="submit" id="submit-rsvp-btn" class="btn-send">Submit RSVP</button>
