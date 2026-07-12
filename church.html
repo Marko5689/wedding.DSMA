@@ -65,6 +65,20 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .face img.loaded {
+    opacity: 1;
+  }
+
+  .face::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #16264a 0%, #0b1632 100%);
+    z-index: -1;
   }
 
   .page-num {
@@ -125,11 +139,11 @@
 <div class="card-stage">
   <div class="card" id="card">
     <div class="face front">
-      <img id="imgFront" src="img/1.png" alt="Wedding invitation">
+      <img id="imgFront" alt="Wedding invitation">
       <div class="page-num" id="numFront">01</div>
     </div>
     <div class="face back">
-      <img id="imgBack" src="img/2.png" alt="Wedding invitation">
+      <img id="imgBack" alt="Wedding invitation">
       <div class="page-num" id="numBack">02</div>
     </div>
   </div>
@@ -160,6 +174,18 @@
 
   function pad(n) { return String(n + 1).padStart(2, '0'); }
 
+  function setImage(imgEl, src) {
+    imgEl.classList.remove('loaded');
+    imgEl.onerror = () => { imgEl.alt = ''; }; // hide alt text if the file truly can't be found
+    imgEl.onload = () => { imgEl.classList.add('loaded'); };
+    imgEl.src = src;
+    // Safety net: if the browser already had it cached and completed
+    // the load before the handler above attached, mark it loaded now.
+    if (imgEl.complete && imgEl.naturalWidth > 0) {
+      imgEl.classList.add('loaded');
+    }
+  }
+
   function updateControls() {
     prevBtn.disabled = idx === 0;
     nextBtn.disabled = idx === total - 1;
@@ -177,10 +203,10 @@
     const showingFront = (((rot / 180) % 2) + 2) % 2 === 0;
 
     if (showingFront) {
-      imgFront.src = images[idx];
+      setImage(imgFront, images[idx]);
       numFront.textContent = pad(idx);
     } else {
-      imgBack.src = images[idx];
+      setImage(imgBack, images[idx]);
       numBack.textContent = pad(idx);
     }
 
@@ -192,6 +218,8 @@
   nextBtn.addEventListener('click', (e) => { e.stopPropagation(); go(1); });
   prevBtn.addEventListener('click', (e) => { e.stopPropagation(); go(-1); });
 
+  setImage(imgFront, images[0]);
+  setImage(imgBack, images[1]);
   updateControls();
 </script>
 
